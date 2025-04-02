@@ -15,6 +15,7 @@ language = "nodejs"
 run = ["sh", "-c", "npm start"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
+build = ["sh", "-c", "npm install"]
 
 [workflows]
 runButton = "Run"
