@@ -1,0 +1,38 @@
+I need help to fully set up my project "jeffrey-queue" on Replit, deploy it, and prepare it for integration with Bolt⚡️new. Please perform the following tasks in order:
+
+1. **Update index.js with core functionality**:
+   - Ensure `index.js` has a working Express server that:
+     - Listens on port 3000 and is accessible externally (use `0.0.0.0` as the host).
+     - Has a POST endpoint `/api/sheets` that appends data to a Google Sheet (spreadsheet ID: "1-Dm4DE7oJv1GQ538gghJMVsHLDVETqUCJIDgc8LVdGA", range: "Sheet1!A:J") using the `googleapis` library and `credentials.json` for authentication. The data to append includes: email, task, date, status, points, level, referrals, plan, details, quantumScore.
+     - Has a background task (using `setInterval`) that runs every 5 minutes, checks for rows in the Google Sheet with status "En attente", sends the task to IBM Quantum (via an axios POST request to "https://api.quantum-computing.ibm.com/runtime/jobs" with program_id: "sampler", backend: "ibmq_manila", and token: "be1f46bbb84ca24d7402b73d8657448d8ac778c48f287bcb4c4bc48fa6a3dc0b3e2645a1e7a4e22c2543cc31b51f3b3e68e8308a4e1c0a7dc31c9839ccda123b"), and updates the row in the Google Sheet with status "Done" and the IBM Quantum response.
+   - After updating `index.js`, stage and commit the changes with the message "Update index.js with core functionality".
+
+2. **Verify package.json**:
+   - Ensure `package.json` is correct and includes:
+     - Name: "jeffrey-queue"
+     - Version: "1.0.0"
+     - Description: "Jeffrey Quantum Dashboard backend"
+     - Main: "index.js"
+     - Scripts: { "start": "node index.js", "test": "echo \"Error: no test specified\" && exit 1" }
+     - Dependencies: "express": "^4.18.2", "googleapis": "^134.0.0", "axios": "^1.6.8"
+   - Run `npm install` to reinstall the dependencies.
+   - If there are any syntax errors or unnecessary dependencies (like "@types/express-serve-static-core", "@types/node", or "axios-hooks"), remove them.
+
+3. **Test the server**:
+   - Run `npm start` and confirm that the server starts without errors (should log "Server running on port 3000").
+
+4. **Push changes to GitHub**:
+   - Stage and commit any remaining changes with the message "Final server setup".
+   - Push the changes to GitHub (`git push origin main`). If the push is rejected, perform a `git pull --rebase origin main`, resolve any conflicts, and push again.
+
+5. **Provide instructions for Netlify deployment**:
+   - Provide step-by-step instructions to deploy the project on Netlify, including how to test the `/api/sheets` endpoint after deployment.
+
+6. **Provide a prompt for Bolt⚡️new**:
+   - Provide a prompt to update the Jeffrey Quantum Dashboard in Bolt⚡️new to:
+     - Remove Supabase integration.
+     - Replace Supabase calls with POST requests to "https://jeffrey-queue.netlify.app/api/sheets".
+     - Send the following data when the form is submitted: { email: form.email, password: form.password, task: form.task, date: "2025-03-20", status: "En attente", points: "0", level: "Beginner", referrals: "0", plan: "Gratuit", details: "Reçu, envoi à IBM Quantum", quantumScore: "0" }.
+     - Update the tests to mock axios requests to "https://jeffrey-queue.netlify.app/api/sheets" instead of Supabase.
+
+Please confirm when each task is completed and provide the necessary instructions or prompts for the next steps.
