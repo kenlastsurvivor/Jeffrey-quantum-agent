@@ -17,8 +17,23 @@ const sheets = google.sheets({ version: 'v4', auth });
 const SPREADSHEET_ID = '1-Dm4DE7oJv1GQ538gghJMVsHLDVETqUCJIDgc8LVdGA';
 const RANGE = 'Sheet1!A:J';
 
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ status: 'OK', message: 'API is working' });
+});
+
 // API endpoints
 app.post('/api/sheets', async (req, res) => {
+  // Validate required fields
+  const requiredFields = ['email', 'task', 'date', 'status'];
+  for (const field of requiredFields) {
+    if (!req.body[field]) {
+      return res.status(400).json({ 
+        success: false, 
+        error: `Missing required field: ${field}` 
+      });
+    }
+  }
   try {
     const { email, task, date, status, points, level, referrals, plan, details, quantumScore } = req.body;
     
@@ -75,6 +90,24 @@ setInterval(async () => {
     console.error('Error in interval check:', error);
   }
 }, 5 * 60 * 1000);
+
+// API Documentation for Bolt integration
+/* 
+POST /api/sheets
+Example request:
+{
+  "email": "user@example.com",
+  "task": "quantum_task_1",
+  "date": "2025-03-20",
+  "status": "En attente",
+  "points": "0",
+  "level": "Beginner",
+  "referrals": "0",
+  "plan": "Gratuit",
+  "details": "Reçu, envoi à IBM Quantum",
+  "quantumScore": "0"
+}
+*/
 
 // Start server
 app.listen(3000, '0.0.0.0', () => {
