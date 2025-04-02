@@ -92,8 +92,31 @@ setInterval(async () => {
 }, 5 * 60 * 1000);
 
 // API Documentation for Bolt integration
-/* 
-POST /api/sheets
+/**
+ * POST /api/sheets
+ * Endpoint to create a new quantum computing task
+ * 
+ * Request body example:
+ * {
+ *   "email": "user@example.com",
+ *   "password": "userpass",
+ *   "task": "quantum_task_1",
+ *   "date": "2025-03-20",
+ *   "status": "En attente",
+ *   "points": "0",
+ *   "level": "Beginner",
+ *   "referrals": "0",
+ *   "plan": "Gratuit",
+ *   "details": "Reçu, envoi à IBM Quantum",
+ *   "quantumScore": "0"
+ * }
+ * 
+ * Response:
+ * {
+ *   "success": true,
+ *   "message": "Data added successfully"
+ * }
+ */
 Example request:
 {
   "email": "user@example.com",
